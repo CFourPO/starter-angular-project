@@ -18,10 +18,10 @@ export class BaseComponent implements  AfterViewInit, OnChanges {
     @Input() base: Base;
     @ViewChild(BaseDirective) baseHost: BaseDirective;
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+    constructor(private componentFactoryResolver: ComponentFactoryResolver, private baseLoader: BaseLoaderService) { }
 
     ngAfterViewInit() {
-        this.loadComponent();
+        //this.loadComponent();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -30,9 +30,10 @@ export class BaseComponent implements  AfterViewInit, OnChanges {
     }
 
     ngOnInit() {
-        //this.baseLoader.loadedBase.subscribe(data => {
-        //    this.base = data;
-        //})
+        this.baseLoader.loadedBase.subscribe(data => {
+            this.base = data;
+        });
+        this.loadComponent();
     }
 
     loadComponent() {

@@ -13,6 +13,8 @@ import { BaseComponent } from './base/base.component';
 import { BaseDirective } from './base/base.directive';
 import { BaseLoaderService } from "./base/base-loader.service";
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FacebookModule, FacebookService } from "ngx-facebook";
+import { LoginService } from "./login/login.service";
 
 @NgModule({
     declarations: [
@@ -29,13 +31,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
         BrowserModule,
         FormsModule,
         HttpModule,
+        FacebookModule.forRoot(),
         ClarityModule.forRoot(),
         ROUTING
     ],
-    providers: [BaseLoaderService],
+    providers: [BaseLoaderService, FacebookService, LoginService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent],
-    entryComponents: [HomeComponent, LoginComponent]
+    entryComponents: [ LoginComponent, HomeComponent, DashboardComponent, AboutComponent]
 })
 export class AppModule {
 }
