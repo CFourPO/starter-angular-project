@@ -7,31 +7,48 @@ import { AboutComponent } from "./about/about.component";
 import { ClarityModule } from "clarity-angular";
 import { ROUTING } from "./app.routing";
 import { APP_BASE_HREF } from "@angular/common";
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { LoginComponent } from "./login/login.component";
+import { Base } from "./base/base";
+import { BaseLoaderService } from "./base/base-loader.service";
+import { BaseDirective } from "./base/base.directive";
 
 describe('AppComponent', () => {
 
     let fixture: ComponentFixture<any>;
     let compiled: any;
+    let component: AppComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
                 AppComponent,
                 AboutComponent,
-                HomeComponent
+                HomeComponent,
+                DashboardComponent,
+                BaseDirective
             ],
             imports: [
                 ClarityModule.forRoot(),
+                BaseDirective,
+
                 ROUTING
             ],
-            providers: [{provide: APP_BASE_HREF, useValue: '/'}]
+            providers: [{provide: APP_BASE_HREF, useValue: '/'}, BaseLoaderService]
         });
 
         fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
         fixture.detectChanges();
         compiled = fixture.nativeElement;
 
 
+    });
+
+    beforeEach(() => {
+        component = fixture.componentInstance;
+        component.base = new Base(LoginComponent, {});
+        fixture.detectChanges();
     });
 
     afterEach(() => {
